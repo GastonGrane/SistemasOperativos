@@ -13,9 +13,9 @@ Hora: 08:09
 08:10 - Carlos2 aceptado en cola EMERGENCIA
 08:10 - Enfermero B empieza a atender a Carlos2 (EMERGENCIA)
 08:10 - Enfermero A empieza a atender a Juan (EMERGENCIA)
+Hora: 08:10
 08:10 - Médico B asiste a Enfermero A con paciente Juan
 08:10 - Médico A asiste a Enfermero B con paciente Carlos2
-Hora: 08:10
 Hora: 08:11
 Hora: 08:12
 Hora: 08:13
@@ -192,12 +192,12 @@ Hora: 10:53
 Hora: 10:54
 Hora: 10:55
 Hora: 10:56
-10:56 - Enfermero B terminó de atender a Carlos2
-10:56 - Enfermero A terminó de atender a Juan
+10:57 - Enfermero B terminó de atender a Carlos2
+10:57 - Enfermero A terminó de atender a Juan
 10:57 - Enfermero B empieza a atender a Pablo (EMERGENCIA)
 10:57 - Enfermero A empieza a atender a Camila (EMERGENCIA)
-10:57 - Médico B asiste a Enfermero A con paciente Camila
-10:57 - Médico A asiste a Enfermero B con paciente Pablo
+10:57 - Médico A asiste a Enfermero A con paciente Camila
+10:57 - Médico B asiste a Enfermero B con paciente Pablo
 Hora: 10:57
 Hora: 10:58
 Hora: 10:59
@@ -207,12 +207,12 @@ Hora: 11:02
 Hora: 11:03
 Hora: 11:04
 Hora: 11:05
-11:06 - Enfermero A terminó de atender a Camila
 11:06 - Enfermero B terminó de atender a Pablo
-11:06 - Enfermero A empieza a atender a Valentina (GENERAL)
-11:06 - Enfermero B empieza a atender a Andres (GENERAL)
-11:06 - Médico B asiste a Enfermero A con paciente Valentina
-11:06 - Médico A asiste a Enfermero B con paciente Andres
+11:06 - Enfermero B empieza a atender a Valentina (GENERAL)
+11:06 - Enfermero A terminó de atender a Camila
+11:06 - Enfermero A empieza a atender a Andres (GENERAL)
+11:06 - Médico A asiste a Enfermero A con paciente Andres
+11:06 - Médico B asiste a Enfermero B con paciente Valentina
 Hora: 11:06
 Hora: 11:07
 Hora: 11:08
@@ -423,11 +423,11 @@ Hora: 14:31
 Hora: 14:32
 Hora: 14:33
 Hora: 14:34
+14:35 - Enfermero B terminó de atender a Valentina
+14:35 - Enfermero A terminó de atender a Andres
 Hora: 14:35
 Hora: 14:36
 Hora: 14:37
-14:38 - Enfermero A terminó de atender a Valentina
-14:38 - Enfermero B terminó de atender a Andres
 Hora: 14:38
 Hora: 14:39
 Hora: 14:40

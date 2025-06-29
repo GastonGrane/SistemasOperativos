@@ -7,14 +7,20 @@ public class Enfermero extends Thread {
     private Paciente pacienteActual = null;
     private boolean enAsistencia = false;
     public final Semaphore inicioDeAtencion = new Semaphore(0);
+    private final Semaphore accesoZonaCriticaColas;
+    private final Semaphore turnoDeRecepcionista;
 
 
-    public Enfermero(String nombre, ColaDeEspera emergencia, ColaDeEspera urgencia, ColaDeEspera general, Reloj reloj) {
+
+    public Enfermero(String nombre, ColaDeEspera emergencia, ColaDeEspera urgencia, ColaDeEspera general, Reloj reloj, Semaphore accesoZonaCriticaColas, Semaphore turnoDeRecepcionista) {
         this.setName(nombre); this.nombre = nombre;
         this.emergencia = emergencia;
         this.urgencia = urgencia;
         this.general = general;
         this.reloj = reloj;
+        this.accesoZonaCriticaColas = accesoZonaCriticaColas;
+        this.turnoDeRecepcionista = turnoDeRecepcionista;
+        this.setName(nombre);
     }
 
     public synchronized boolean estaAtendiendo() {
@@ -37,18 +43,26 @@ public class Enfermero extends Thread {
     public void run() {
         while (!reloj.esFinDelDia()) {
             Paciente paciente = null;
-            synchronized (emergencia) {
+
+            try {
+                turnoDeRecepcionista.acquire();   // espera que la recepcionista termine
+                turnoDeRecepcionista.release();   // libera inmediatamente
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                // ZONA CRÍTICA: solo un enfermero accede a las colas por vez
+                accesoZonaCriticaColas.acquire();
+
                 paciente = emergencia.obtenerPaciente();
-            }
-            if (paciente == null) {
-                synchronized (urgencia) {
-                    paciente = urgencia.obtenerPaciente();
-                }
-            }
-            if (paciente == null) {
-                synchronized (general) {
-                    paciente = general.obtenerPaciente();
-                }
+                if (paciente == null) paciente = urgencia.obtenerPaciente();
+                if (paciente == null) paciente = general.obtenerPaciente();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                accesoZonaCriticaColas.release();  // Liberar el acceso a las colas
             }
 
             if (paciente != null) {
