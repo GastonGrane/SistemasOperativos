@@ -15,7 +15,12 @@ public class Medico extends Thread {
             Enfermero enfermero = coordinador.buscarEnfermeroParaAsistir();
             if (enfermero != null) {
                 Paciente paciente = enfermero.getPacienteActual();
-                Logger.log(reloj.getHoraActual() + " - " + nombre + " asiste a " + enfermero.getName() + " con paciente " + paciente.nombre);
+                try {
+                    enfermero.inicioDeAtencion.acquire();
+                    Logger.log(reloj.getHoraActual() + " - " + nombre + " asiste a " + enfermero.nombre + " con paciente " + paciente.nombre);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             try {
                 Thread.sleep(5); // espera antes de revisar de nuevo

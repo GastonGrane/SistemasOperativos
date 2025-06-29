@@ -1,9 +1,13 @@
+import java.util.concurrent.Semaphore;
+
 public class Enfermero extends Thread {
     public final String nombre;
     private final ColaDeEspera emergencia, urgencia, general;
     private final Reloj reloj;
     private Paciente pacienteActual = null;
     private boolean enAsistencia = false;
+    public final Semaphore inicioDeAtencion = new Semaphore(0);
+
 
     public Enfermero(String nombre, ColaDeEspera emergencia, ColaDeEspera urgencia, ColaDeEspera general, Reloj reloj) {
         this.setName(nombre); this.nombre = nombre;
@@ -58,12 +62,14 @@ public class Enfermero extends Thread {
                     enAsistencia = false;
                 }
                 Logger.log(reloj.getHoraActual() + " - " + nombre + " empieza a atender a " + paciente.nombre + " (" + paciente.tipo + ")");
+                inicioDeAtencion.release();  // Habilita a los médicos
                 try {
                     Thread.sleep(paciente.duracion * 10L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 Logger.log(reloj.getHoraActual() + " - " + nombre + " terminó de atender a " + paciente.nombre);
+                inicioDeAtencion.drainPermits(); // Limpia el semáforo para el siguiente
                 synchronized (this) {
                     pacienteActual = null;
                     enAsistencia = false;
