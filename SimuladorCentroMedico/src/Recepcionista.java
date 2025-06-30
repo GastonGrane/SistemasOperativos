@@ -2,21 +2,25 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 public class Recepcionista extends Thread {
     private final String archivoPacientes;
     private final ColaDeEspera emergencia, urgencia, general;
     private final Reloj reloj;
-    private final List<Paciente> pacientesPendientes = new ArrayList<>();
+    private final List<Paciente> pacientesPendientes = new LinkedList<>();
+    private final Semaphore turnoDeRecepcionista;
 
-    public Recepcionista(String archivoPacientes, ColaDeEspera emergencia, ColaDeEspera urgencia, ColaDeEspera general, Reloj reloj) {
+    public Recepcionista(String archivoPacientes, ColaDeEspera emergencia, ColaDeEspera urgencia, ColaDeEspera general, Reloj reloj, Semaphore turnoDeRecepcionista) {
         this.archivoPacientes = archivoPacientes;
         this.emergencia = emergencia;
         this.urgencia = urgencia;
         this.general = general;
         this.reloj = reloj;
         cargarPacientes();
+        this.turnoDeRecepcionista = turnoDeRecepcionista;
     }
 
     private void cargarPacientes() {
@@ -44,9 +48,17 @@ public class Recepcionista extends Thread {
     @Override
     public void run() {
         while (!reloj.esFinDelDia()) {
-            List<Paciente> ingresadosEsteMinuto = new ArrayList<>();
-            for (Paciente p : pacientesPendientes) {
-                if (p.horaLlegada == reloj.getHora() && p.minutoLlegada == reloj.getMinuto()) {
+            try {
+                turnoDeRecepcionista.acquire();  //Bloquea a los enfermeros
+
+                List<Paciente> paraInsertar = new ArrayList<>();
+                for (Paciente p : pacientesPendientes) {
+                    if (p.horaLlegada == reloj.getHora() && p.minutoLlegada == reloj.getMinuto()) {
+                        paraInsertar.add(p);
+                    }
+                }
+
+                for (Paciente p : paraInsertar) {
                     boolean aceptado = false;
                     switch (p.tipo) {
                         case EMERGENCIA -> aceptado = emergencia.agregarPaciente(p);
@@ -54,7 +66,6 @@ public class Recepcionista extends Thread {
                         case GENERAL, CARNE -> {
                             if (p.tipo == TipoConsulta.CARNE && !p.tieneOdontologo) {
                                 Logger.log(p.getTiempoLlegadaStr() + " - " + p.nombre + " rechazado (sin odontólogo)");
-                                ingresadosEsteMinuto.add(p);
                                 continue;
                             }
                             aceptado = general.agregarPaciente(p);
@@ -63,15 +74,15 @@ public class Recepcionista extends Thread {
                     String estado = aceptado ? "aceptado" : "rechazado (cola llena)";
                     Logger.log(p.getTiempoLlegadaStr() + " - " + p.nombre + " " + estado + " en cola " + p.tipo);
                     if (aceptado) p.listoParaAtencion.release();
-                    ingresadosEsteMinuto.add(p);
                 }
-            }
-            pacientesPendientes.removeAll(ingresadosEsteMinuto);
-            try {
-                Thread.sleep(5);
+
+                pacientesPendientes.removeAll(paraInsertar);
             } catch (InterruptedException e) {
-                break;
+                e.printStackTrace();
+            } finally {
+                turnoDeRecepcionista.release();  //Ahora los enfermeros pueden buscar
             }
         }
     }
+
 }

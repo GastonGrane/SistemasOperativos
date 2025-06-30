@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.Semaphore;
 
 public class ColaDeEspera {
     private final Queue<Paciente> cola = new LinkedList<>();
@@ -11,7 +12,7 @@ public class ColaDeEspera {
         this.capacidadMaxima = capacidad;
     }
 
-    public synchronized boolean agregarPaciente(Paciente p) {
+    public boolean agregarPaciente(Paciente p) {
         if (cola.size() < capacidadMaxima) {
             cola.add(p);
             return true;
@@ -19,23 +20,11 @@ public class ColaDeEspera {
         return false;
     }
 
-    public synchronized Paciente obtenerPaciente() {
+    public Paciente obtenerPaciente() {
         return cola.poll();
     }
 
-    public synchronized int size() {
-        return cola.size();
-    }
-
-    public synchronized boolean estaVacia() {
-        return cola.isEmpty();
-    }
-
-    public synchronized Queue<Paciente> getPacientes() {
+    public Queue<Paciente> getPacientes() {
         return cola;
-    }
-
-    public String getNombre() {
-        return nombre;
     }
 }

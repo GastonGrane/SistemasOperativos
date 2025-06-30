@@ -7,7 +7,6 @@ public class Paciente {
     public int minutoLlegada;
     public int duracion;
     public boolean tieneOdontologo;
-    public int tiempoEspera = 0;
     public final Semaphore listoParaAtencion = new Semaphore(0);
 
     public Paciente(String nombre, TipoConsulta tipo, int hora, int minuto, int duracion, boolean tieneOdontologo) {

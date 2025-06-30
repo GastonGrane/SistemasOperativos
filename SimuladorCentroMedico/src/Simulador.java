@@ -1,18 +1,24 @@
+import java.util.concurrent.Semaphore;
+
 public class Simulador {
     public static void main(String[] args) {
         Logger.iniciarLog();
+        Semaphore accesoZonaCriticaColas = new Semaphore(1);
+        Semaphore turnoDeRecepcionista = new Semaphore(1);
+
+
         Logger.log("=== INICIO DE LA SIMULACION ===");
 
         Reloj reloj = new Reloj();
-        ColaDeEspera emergencia = new ColaDeEspera("Emergencia", 4);
+        ColaDeEspera emergencia = new ColaDeEspera("Emergencia", 3);
         ColaDeEspera urgencia = new ColaDeEspera("Urgencia", 3);
         ColaDeEspera general = new ColaDeEspera("General", 5);
 
         Coordinador coordinador = new Coordinador();
 
-        Recepcionista recepcionista = new Recepcionista("SimuladorCentroMedico\\pacientes.txt", emergencia, urgencia, general, reloj);
-        Enfermero enfermero1 = new Enfermero("Enfermero A", emergencia, urgencia, general, reloj);
-        Enfermero enfermero2 = new Enfermero("Enfermero B", emergencia, urgencia, general, reloj);
+        Recepcionista recepcionista = new Recepcionista("SimuladorCentroMedico\\pacientes.txt", emergencia, urgencia, general, reloj, turnoDeRecepcionista);
+        Enfermero enfermero1 = new Enfermero("Enfermero A", emergencia, urgencia, general, reloj, accesoZonaCriticaColas, turnoDeRecepcionista);
+        Enfermero enfermero2 = new Enfermero("Enfermero B", emergencia, urgencia, general, reloj, accesoZonaCriticaColas, turnoDeRecepcionista);
 
         coordinador.registrarEnfermeros(enfermero1, enfermero2);
 
