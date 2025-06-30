@@ -2,7 +2,7 @@ import java.util.concurrent.Semaphore;
 
 public class Enfermero extends Thread {
     public final String nombre;
-    private final ColaDeEspera emergencia, urgencia, general;
+    private final ColaDeEspera emergencia, urgencia, general, carne;
     private final Reloj reloj;
     private Paciente pacienteActual = null;
     private boolean enAsistencia = false;
@@ -12,11 +12,12 @@ public class Enfermero extends Thread {
 
 
 
-    public Enfermero(String nombre, ColaDeEspera emergencia, ColaDeEspera urgencia, ColaDeEspera general, Reloj reloj, Semaphore accesoZonaCriticaColas, Semaphore turnoDeRecepcionista) {
+    public Enfermero(String nombre, ColaDeEspera emergencia, ColaDeEspera carne, ColaDeEspera urgencia, ColaDeEspera general, Reloj reloj, Semaphore accesoZonaCriticaColas, Semaphore turnoDeRecepcionista) {
         this.setName(nombre); this.nombre = nombre;
         this.emergencia = emergencia;
         this.urgencia = urgencia;
         this.general = general;
+        this.carne = carne;
         this.reloj = reloj;
         this.accesoZonaCriticaColas = accesoZonaCriticaColas;
         this.turnoDeRecepcionista = turnoDeRecepcionista;
@@ -59,6 +60,8 @@ public class Enfermero extends Thread {
                 paciente = emergencia.obtenerPaciente();
                 if (paciente == null) paciente = urgencia.obtenerPaciente();
                 if (paciente == null) paciente = general.obtenerPaciente();
+                if (paciente == null) paciente = emergencia.obtenerPaciente();
+                if (paciente == null) paciente = carne.obtenerPaciente();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
