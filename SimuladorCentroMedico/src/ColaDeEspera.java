@@ -6,6 +6,8 @@ public class ColaDeEspera {
     private final Queue<Paciente> cola = new LinkedList<>();
     private final int capacidadMaxima;
     private final String nombre;
+    private final Semaphore mutex = new Semaphore(1);
+
 
     public ColaDeEspera(String nombre, int capacidad) {
         this.nombre = nombre;
@@ -13,12 +15,21 @@ public class ColaDeEspera {
     }
 
     public boolean agregarPaciente(Paciente p) {
-        if (cola.size() < capacidadMaxima) {
-            cola.add(p);
-            return true;
+        try {
+            mutex.acquire();
+            if (cola.size() < capacidadMaxima) {
+                cola.add(p);
+                return true;
+            }
+            return false;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return false;
+        } finally {
+            mutex.release();
         }
-        return false;
     }
+
 
     public Paciente obtenerPaciente() {
         return cola.poll();
