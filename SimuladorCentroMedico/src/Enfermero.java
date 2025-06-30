@@ -44,15 +44,16 @@ public class Enfermero extends Thread {
         while (!reloj.esFinDelDia()) {
             Paciente paciente = null;
 
+            // Esperar a que la recepcionista termine de insertar
             try {
-                turnoDeRecepcionista.acquire();   // espera que la recepcionista termine
-                turnoDeRecepcionista.release();   // libera inmediatamente
+                turnoDeRecepcionista.acquire();
+                turnoDeRecepcionista.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
+            // ZONA CRÍTICA: acceso único a todas las colas
             try {
-                // ZONA CRÍTICA: solo un enfermero accede a las colas por vez
                 accesoZonaCriticaColas.acquire();
 
                 paciente = emergencia.obtenerPaciente();
@@ -62,7 +63,7 @@ public class Enfermero extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
-                accesoZonaCriticaColas.release();  // Liberar el acceso a las colas
+                accesoZonaCriticaColas.release();
             }
 
             if (paciente != null) {
@@ -71,30 +72,36 @@ public class Enfermero extends Thread {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
                 synchronized (this) {
                     pacienteActual = paciente;
                     enAsistencia = false;
                 }
+
                 Logger.log(reloj.getHoraActual() + " - " + nombre + " empieza a atender a " + paciente.nombre + " (" + paciente.tipo + ")");
                 inicioDeAtencion.release();  // Habilita a los médicos
+
                 try {
                     Thread.sleep(paciente.duracion * 10L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
                 Logger.log(reloj.getHoraActual() + " - " + nombre + " terminó de atender a " + paciente.nombre);
-                inicioDeAtencion.drainPermits(); // Limpia el semáforo para el siguiente
+                inicioDeAtencion.drainPermits();  // Resetear para el próximo
+
                 synchronized (this) {
                     pacienteActual = null;
                     enAsistencia = false;
                 }
             } else {
                 try {
-                    Thread.sleep(5);
+                    Thread.sleep(5);  // espera breve si no hay paciente
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
+
 }
