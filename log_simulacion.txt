@@ -1,16 +1,16 @@
 === INICIO DE LA SIMULACION ===
 Hora: 08:00
 08:00 - Juan aceptado en cola EMERGENCIA
-08:01 - Enfermero A empieza a atender a Juan (EMERGENCIA)
-08:01 - Médico A asiste a Enfermero A con paciente Juan
+08:01 - Enfermero B empieza a atender a Juan (EMERGENCIA)
 Hora: 08:01
+08:02 - Médico A asiste a Enfermero B con paciente Juan
 Hora: 08:02
 Hora: 08:03
 Hora: 08:04
 Hora: 08:05
 08:06 - Cecilia aceptado en cola GENERAL
-08:06 - Enfermero B empieza a atender a Cecilia (GENERAL)
-08:06 - Médico B asiste a Enfermero B con paciente Cecilia
+08:06 - Enfermero A empieza a atender a Cecilia (GENERAL)
+08:06 - Médico A asiste a Enfermero A con paciente Cecilia
 Hora: 08:06
 08:07 - Lautaro aceptado en cola GENERAL
 Hora: 08:07
@@ -28,19 +28,19 @@ Hora: 08:14
 Hora: 08:15
 Hora: 08:16
 Hora: 08:17
-08:18 - Enfermero A terminó de atender a Juan
-08:18 - Enfermero A empieza a atender a Carlos (EMERGENCIA)
+08:17 - Enfermero B terminó de atender a Juan
 Hora: 08:18
-08:19 - Médico A asiste a Enfermero A con paciente Carlos
+08:18 - Enfermero B empieza a atender a Carlos (EMERGENCIA)
+08:19 - Médico A asiste a Enfermero B con paciente Carlos
 Hora: 08:19
 08:20 - Sofia aceptado en cola URGENCIA
 Hora: 08:20
 Hora: 08:21
+08:21 - Enfermero A terminó de atender a Cecilia
+08:22 - Enfermero A empieza a atender a Bruno (URGENCIA)
+08:22 - Médico B asiste a Enfermero A con paciente Bruno
 Hora: 08:22
 Hora: 08:23
-08:23 - Enfermero B terminó de atender a Cecilia
-08:24 - Enfermero B empieza a atender a Bruno (URGENCIA)
-08:24 - Médico B asiste a Enfermero B con paciente Bruno
 Hora: 08:24
 Hora: 08:25
 Hora: 08:26
@@ -50,7 +50,6 @@ Hora: 08:29
 08:30 - Luis aceptado en cola GENERAL
 Hora: 08:30
 Hora: 08:31
-08:31 - Sofia promovido de URGENCIA a EMERGENCIA
 Hora: 08:32
 Hora: 08:33
 Hora: 08:34
@@ -63,12 +62,12 @@ Hora: 08:40
 Hora: 08:41
 Hora: 08:42
 Hora: 08:43
+08:44 - Enfermero A terminó de atender a Bruno
+08:44 - Enfermero A empieza a atender a Sofia (URGENCIA)
+08:44 - Médico B asiste a Enfermero A con paciente Sofia
 Hora: 08:44
 08:45 - María aceptado en cola CARNE
 Hora: 08:45
-08:46 - Enfermero B terminó de atender a Bruno
-08:46 - Enfermero B empieza a atender a Sofia (EMERGENCIA)
-08:46 - Médico A asiste a Enfermero B con paciente Sofia
 Hora: 08:46
 Hora: 08:47
 Hora: 08:48
@@ -80,13 +79,13 @@ Hora: 08:53
 Hora: 08:54
 Hora: 08:55
 Hora: 08:56
+08:57 - Enfermero A terminó de atender a Sofia
 Hora: 08:57
+08:57 - Enfermero A empieza a atender a Lautaro (GENERAL)
+08:58 - Médico A asiste a Enfermero A con paciente Lautaro
 Hora: 08:58
-08:59 - Enfermero B terminó de atender a Sofia
-08:59 - Enfermero B empieza a atender a Lautaro (GENERAL)
 Hora: 08:59
 09:00 - Pedro rechazado (sin odontólogo)
-09:00 - Médico A asiste a Enfermero B con paciente Lautaro
 09:00 - Pablo aceptado en cola EMERGENCIA
 Hora: 09:00
 Hora: 09:01
@@ -99,24 +98,24 @@ Hora: 09:07
 Hora: 09:08
 Hora: 09:09
 Hora: 09:10
+09:11 - Enfermero B terminó de atender a Carlos
+09:11 - Enfermero B empieza a atender a Pablo (EMERGENCIA)
+09:11 - Médico B asiste a Enfermero B con paciente Pablo
 Hora: 09:11
-09:11 - Enfermero A terminó de atender a Carlos
-09:12 - Enfermero A empieza a atender a Pablo (EMERGENCIA)
-09:12 - Médico A asiste a Enfermero A con paciente Pablo
 Hora: 09:12
 Hora: 09:13
 Hora: 09:14
+09:14 - Enfermero A terminó de atender a Lautaro
+09:15 - Enfermero A empieza a atender a Laura (GENERAL)
+09:15 - Médico A asiste a Enfermero A con paciente Laura
 Hora: 09:15
-09:16 - Enfermero B terminó de atender a Lautaro
-09:16 - Enfermero B empieza a atender a Laura (GENERAL)
 Hora: 09:16
-09:17 - Médico B asiste a Enfermero B con paciente Laura
 Hora: 09:17
 Hora: 09:18
 Hora: 09:19
-09:20 - Enfermero A terminó de atender a Pablo
-09:20 - Enfermero A empieza a atender a Agustina (GENERAL)
-09:20 - Médico A asiste a Enfermero A con paciente Agustina
+09:20 - Enfermero B terminó de atender a Pablo
+09:20 - Enfermero B empieza a atender a Agustina (GENERAL)
+09:20 - Médico B asiste a Enfermero B con paciente Agustina
 Hora: 09:20
 Hora: 09:21
 Hora: 09:22
@@ -129,13 +128,14 @@ Hora: 09:28
 Hora: 09:29
 Hora: 09:30
 Hora: 09:31
+09:32 - Enfermero A terminó de atender a Laura
+09:32 - Enfermero A empieza a atender a Luis (GENERAL)
 Hora: 09:32
+09:33 - Médico A asiste a Enfermero A con paciente Luis
+09:33 - Enfermero B terminó de atender a Agustina
+09:33 - Enfermero B empieza a atender a María (CARNE)
+09:33 - Médico B asiste a Enfermero B con paciente María
 Hora: 09:33
-09:33 - Enfermero A terminó de atender a Agustina
-09:34 - Enfermero A empieza a atender a Luis (GENERAL)
-09:34 - Médico A asiste a Enfermero A con paciente Luis
-09:34 - Enfermero B terminó de atender a Laura
-09:34 - Enfermero B empieza a atender a María (CARNE)
 Hora: 09:34
 Hora: 09:35
 Hora: 09:36
@@ -147,9 +147,9 @@ Hora: 09:41
 Hora: 09:42
 Hora: 09:43
 Hora: 09:44
+09:45 - Enfermero A terminó de atender a Luis
 Hora: 09:45
 Hora: 09:46
-09:47 - Enfermero A terminó de atender a Luis
 Hora: 09:47
 Hora: 09:48
 Hora: 09:49
@@ -158,8 +158,8 @@ Hora: 09:51
 Hora: 09:52
 Hora: 09:53
 Hora: 09:54
+09:55 - Enfermero B terminó de atender a María
 Hora: 09:55
-09:56 - Enfermero B terminó de atender a María
 Hora: 09:56
 Hora: 09:57
 Hora: 09:58
@@ -183,7 +183,7 @@ Hora: 10:07
 Hora: 10:08
 10:09 - Enfermero B terminó de atender a Camila
 10:09 - Enfermero B empieza a atender a Valentina (EMERGENCIA)
-10:09 - Médico B asiste a Enfermero B con paciente Valentina
+10:09 - Médico A asiste a Enfermero B con paciente Valentina
 Hora: 10:09
 10:10 - Emilia aceptado en cola GENERAL
 Hora: 10:10
@@ -192,13 +192,13 @@ Hora: 10:12
 Hora: 10:13
 10:14 - Enfermero A terminó de atender a Rocio
 10:14 - Enfermero A empieza a atender a Andres (URGENCIA)
-10:14 - Médico B asiste a Enfermero A con paciente Andres
+10:14 - Médico A asiste a Enfermero A con paciente Andres
 Hora: 10:14
 Hora: 10:15
 Hora: 10:16
-10:17 - Enfermero B terminó de atender a Valentina
-10:17 - Enfermero B empieza a atender a Emilia (GENERAL)
 Hora: 10:17
+10:18 - Enfermero B terminó de atender a Valentina
+10:18 - Enfermero B empieza a atender a Emilia (GENERAL)
 10:18 - Médico A asiste a Enfermero B con paciente Emilia
 Hora: 10:18
 Hora: 10:19
@@ -787,5 +787,5 @@ Hora: 19:59
 === ESTADISTICAS FINALES ===
 Muertos: 0
 Abandonaron: 0
-Urgencias promovidas: 1
+Urgencias promovidas: 0
 === FIN DE LA SIMULACION ===

@@ -13,12 +13,13 @@ public class Simulador {
         ColaDeEspera emergencia = new ColaDeEspera("Emergencia", 3);
         ColaDeEspera urgencia = new ColaDeEspera("Urgencia", 3);
         ColaDeEspera general = new ColaDeEspera("General", 5);
+        ColaDeEspera carne = new ColaDeEspera("Carne", 3);
 
         Coordinador coordinador = new Coordinador();
 
         Recepcionista recepcionista = new Recepcionista("SimuladorCentroMedico\\pacientes.txt", emergencia, urgencia, general, reloj, turnoDeRecepcionista);
-        Enfermero enfermero1 = new Enfermero("Enfermero A", emergencia, urgencia, general, reloj, accesoZonaCriticaColas, turnoDeRecepcionista);
-        Enfermero enfermero2 = new Enfermero("Enfermero B", emergencia, urgencia, general, reloj, accesoZonaCriticaColas, turnoDeRecepcionista);
+        Enfermero enfermero1 = new Enfermero("Enfermero A", emergencia, carne, urgencia, general, reloj, accesoZonaCriticaColas, turnoDeRecepcionista);
+        Enfermero enfermero2 = new Enfermero("Enfermero B", emergencia, carne, urgencia, general, reloj, accesoZonaCriticaColas, turnoDeRecepcionista);
 
         coordinador.registrarEnfermeros(enfermero1, enfermero2);
 

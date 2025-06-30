@@ -13,10 +13,10 @@ public class Coordinador {
     public Enfermero buscarEnfermeroParaAsistir() {
         try {
             mutex.acquire();
-            if (enfermeroA.estaAtendiendo() && enfermeroA.getPacienteActual().tipo != TipoConsulta.CARNE && !enfermeroA.tieneAsistencia()) {
+            if (enfermeroA.estaAtendiendo() && !enfermeroA.tieneAsistencia()) {
                 enfermeroA.marcarAsistencia();
                 return enfermeroA;
-            } else if (enfermeroB.estaAtendiendo() && enfermeroB.getPacienteActual().tipo != TipoConsulta.CARNE && !enfermeroB.tieneAsistencia()) {
+            } else if (enfermeroB.estaAtendiendo() && !enfermeroB.tieneAsistencia()) {
                 enfermeroB.marcarAsistencia();
                 return enfermeroB;
             }
