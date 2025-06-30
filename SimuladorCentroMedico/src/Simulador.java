@@ -10,7 +10,7 @@ public class Simulador {
         Logger.log("=== INICIO DE LA SIMULACION ===");
 
         Reloj reloj = new Reloj();
-        ColaDeEspera emergencia = new ColaDeEspera("Emergencia", 4);
+        ColaDeEspera emergencia = new ColaDeEspera("Emergencia", 3);
         ColaDeEspera urgencia = new ColaDeEspera("Urgencia", 3);
         ColaDeEspera general = new ColaDeEspera("General", 5);
 

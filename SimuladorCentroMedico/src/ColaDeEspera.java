@@ -6,7 +6,6 @@ public class ColaDeEspera {
     private final Queue<Paciente> cola = new LinkedList<>();
     private final int capacidadMaxima;
     private final String nombre;
-    private final Semaphore accesoCola = new Semaphore(1);  // reemplazo de synchronized
 
     public ColaDeEspera(String nombre, int capacidad) {
         this.nombre = nombre;
@@ -27,9 +26,5 @@ public class ColaDeEspera {
 
     public Queue<Paciente> getPacientes() {
         return cola;
-    }
-
-    public String getNombre() {
-        return nombre;
     }
 }

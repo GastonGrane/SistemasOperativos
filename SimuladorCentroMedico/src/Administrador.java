@@ -42,7 +42,7 @@ public class Administrador extends Thread {
                 int espera = reloj.minutosDesde(p.horaLlegada, p.minutoLlegada);
                 switch (p.tipo) {
                     case URGENCIA -> {
-                        if (espera > 10) {
+                        if (espera > 110) {
                             it.remove();
                             p.tipo = TipoConsulta.EMERGENCIA;
                             emergencia.agregarPaciente(p);
@@ -51,7 +51,7 @@ public class Administrador extends Thread {
                         }
                     }
                     case EMERGENCIA -> {
-                        if (espera > 120) {
+                        if (espera > 10) {
                             it.remove();
                             Logger.log(reloj.getHoraActual() + " - " + p.nombre + " murió esperando en EMERGENCIA");
                             muertos.add(p);
